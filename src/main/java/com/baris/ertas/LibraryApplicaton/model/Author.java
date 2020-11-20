@@ -1,45 +1,24 @@
 package com.baris.ertas.LibraryApplicaton.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Cascade;
 
-public class Author {
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-    private Long id;
+
+public class Author extends Base {
+
+
     private String authorName;
     private String authorDescription;
 
-    protected Author() {}
 
-    public Author(String authorName, String authorDescription) {
-        this.authorName = authorName;
-        this.authorDescription = authorDescription;
-    }
 
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
-
-    public String getAuthorDescription() {
-        return authorDescription;
-    }
-
-    public void setAuthorDescription(String authorDescription) {
-        this.authorDescription = authorDescription;
-    }
-
-    @Override
-    public String toString() {
-        return "Author{" +
-                "id=" + id +
-                ", authorName='" + authorName + '\'' +
-                ", authorDescription='" + authorDescription + '\'' +
-                '}';
-    }
 }

@@ -1,9 +1,17 @@
 package com.baris.ertas.LibraryApplicaton.model;
 
+
+import javax.persistence.*;
+import java.util.List;
+
+
 public class Publisher {
 
+    private long id;
     private String publisherName;
     private String publisherDescription;
+
+    protected Publisher() {}
 
     public Publisher(String publisherName, String publisherDescription) {
         this.publisherName = publisherName;

@@ -1,20 +1,28 @@
 package com.baris.ertas.LibraryApplicaton.model;
 
+import org.hibernate.annotations.Generated;
+
+import javax.persistence.*;
+
 public class Book {
 
     private String bookName;
     private String bookSubtitle;
     private String seriesName;
-    private String bookOfauthor;
+    private String bookOfAuthor;
     private String bookOfPublisher;
     private String isbnNumber;
     private String bookDescription;
 
-    public Book(String bookName, String bookSubtitle, String seriesName, String bookOfauthor, String bookOfPublisher, String isbnNumber, String bookDescription) {
+    private Author author;
+
+    protected Book() {}
+
+    public Book(String bookName, String bookSubtitle, String seriesName, String bookOfAuthor, String bookOfPublisher, String isbnNumber, String bookDescription) {
         this.bookName = bookName;
         this.bookSubtitle = bookSubtitle;
         this.seriesName = seriesName;
-        this.bookOfauthor = bookOfauthor;
+        this.bookOfAuthor = bookOfAuthor;
         this.bookOfPublisher = bookOfPublisher;
         this.isbnNumber = isbnNumber;
         this.bookDescription = bookDescription;
@@ -45,11 +53,11 @@ public class Book {
     }
 
     public String getBookOfauthor() {
-        return bookOfauthor;
+        return bookOfAuthor;
     }
 
     public void setBookOfauthor(String bookOfauthor) {
-        this.bookOfauthor = bookOfauthor;
+        this.bookOfAuthor = bookOfauthor;
     }
 
     public String getBookOfPublisher() {
@@ -82,7 +90,7 @@ public class Book {
                 "bookName='" + bookName + '\'' +
                 ", bookSubtitle='" + bookSubtitle + '\'' +
                 ", seriesName='" + seriesName + '\'' +
-                ", bookOfauthor='" + bookOfauthor + '\'' +
+                ", bookOfauthor='" + bookOfAuthor + '\'' +
                 ", bookOfPublisher='" + bookOfPublisher + '\'' +
                 ", isbnNumber='" + isbnNumber + '\'' +
                 ", bookDescription='" + bookDescription + '\'' +
