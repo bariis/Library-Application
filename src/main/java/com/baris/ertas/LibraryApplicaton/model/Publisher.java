@@ -1,21 +1,36 @@
 package com.baris.ertas.LibraryApplicaton.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 
-public class Publisher {
+@Entity
+public class Publisher extends BaseEntity {
 
-    private long id;
     private String publisherName;
     private String publisherDescription;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "publisher", fetch = FetchType.LAZY)
+    private Set<Book> books;
 
     protected Publisher() {}
 
     public Publisher(String publisherName, String publisherDescription) {
         this.publisherName = publisherName;
         this.publisherDescription = publisherDescription;
+    }
+
+    @JsonManagedReference
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 
     public String getPublisherName() {

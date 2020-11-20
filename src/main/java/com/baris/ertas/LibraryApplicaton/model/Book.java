@@ -1,24 +1,39 @@
 package com.baris.ertas.LibraryApplicaton.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
 
-public class Book {
+@Entity
+public class Book extends BaseEntity {
 
     private String bookName;
     private String bookSubtitle;
     private String seriesName;
     private String bookOfAuthor;
     private String bookOfPublisher;
+
+    @Column(unique = true)
     private String isbnNumber;
     private String bookDescription;
 
+    @ManyToOne
+    @JoinColumn(name = "author_id")
     private Author author;
+
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
 
     protected Book() {}
 
-    public Book(String bookName, String bookSubtitle, String seriesName, String bookOfAuthor, String bookOfPublisher, String isbnNumber, String bookDescription) {
+    public Book(String bookName, String bookSubtitle, String seriesName, String bookOfAuthor, String bookOfPublisher, String isbnNumber, String bookDescription, Author author, Publisher publisher) {
         this.bookName = bookName;
         this.bookSubtitle = bookSubtitle;
         this.seriesName = seriesName;
@@ -26,6 +41,8 @@ public class Book {
         this.bookOfPublisher = bookOfPublisher;
         this.isbnNumber = isbnNumber;
         this.bookDescription = bookDescription;
+        this.author = author;
+        this.publisher = publisher;
     }
 
     public String getBookName() {
@@ -52,12 +69,12 @@ public class Book {
         this.seriesName = seriesName;
     }
 
-    public String getBookOfauthor() {
+    public String getBookOfAuthor() {
         return bookOfAuthor;
     }
 
-    public void setBookOfauthor(String bookOfauthor) {
-        this.bookOfAuthor = bookOfauthor;
+    public void setBookOfAuthor(String bookOfAuthor) {
+        this.bookOfAuthor = bookOfAuthor;
     }
 
     public String getBookOfPublisher() {
@@ -84,16 +101,21 @@ public class Book {
         this.bookDescription = bookDescription;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "bookName='" + bookName + '\'' +
-                ", bookSubtitle='" + bookSubtitle + '\'' +
-                ", seriesName='" + seriesName + '\'' +
-                ", bookOfauthor='" + bookOfAuthor + '\'' +
-                ", bookOfPublisher='" + bookOfPublisher + '\'' +
-                ", isbnNumber='" + isbnNumber + '\'' +
-                ", bookDescription='" + bookDescription + '\'' +
-                '}';
+    @JsonBackReference
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    @JsonBackReference
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 }
