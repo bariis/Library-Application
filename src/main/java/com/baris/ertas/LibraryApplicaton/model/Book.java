@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -19,7 +21,6 @@ public class Book extends BaseEntity {
     private String bookOfAuthor;
     private String bookOfPublisher;
 
-    @Column(unique = true)
     private String isbnNumber;
     private String bookDescription;
 
