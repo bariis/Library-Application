@@ -36,13 +36,13 @@ public class LibraryApplicatonApplication {
 
 			userServiceImpl.saveAdmin(adminUser);
 
-			Author author = new Author("schopenhauer", "alman felsefeci");
+			Author author = new Author("Schopenhauer", "alman felsefeci");
 			Publisher publisher = new Publisher("can yayinlari", "bura can yayinlari");
 
 			publisherRepository.save(publisher);
 			authorRepository.save(author);
 
-			Book book = new Book("Olumun anlami", "hayatin subtitle", "felsefe serisi", "Schopenhauer",
+			/*Book book = new Book("Olumun anlami", "hayatin subtitle",
 					"can yayinlari", "88888", "hayatin anlami hakkinda", author, publisher);
 
 			Book book2 = new Book("Hayatin anlami", "hayatin subtitle", "felsefe serisi", "Schopenhauer",
@@ -50,7 +50,7 @@ public class LibraryApplicatonApplication {
 
 
 			bookRepository.save(book);
-			bookRepository.save(book2);
+			bookRepository. save(book2); */
 
 		};
 	}
