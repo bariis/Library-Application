@@ -13,33 +13,29 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
-public class Book extends BaseEntity {
+public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long kitapId;
     private String bookName;
     private String bookSubtitle;
     private String seriesName;
-    private String bookOfAuthor;
-    private String bookOfPublisher;
-
     private String isbnNumber;
     private String bookDescription;
 
     @ManyToOne
-    @JoinColumn(name = "author_id")
     private Author author;
 
     @ManyToOne
-    @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    protected Book() {}
+    public Book() {}
 
-    public Book(String bookName, String bookSubtitle, String seriesName, String bookOfAuthor, String bookOfPublisher, String isbnNumber, String bookDescription, Author author, Publisher publisher) {
+    public Book(String bookName, String bookSubtitle, String seriesName, String isbnNumber, String bookDescription, Author author, Publisher publisher) {
         this.bookName = bookName;
         this.bookSubtitle = bookSubtitle;
         this.seriesName = seriesName;
-        this.bookOfAuthor = bookOfAuthor;
-        this.bookOfPublisher = bookOfPublisher;
         this.isbnNumber = isbnNumber;
         this.bookDescription = bookDescription;
         this.author = author;
@@ -70,21 +66,7 @@ public class Book extends BaseEntity {
         this.seriesName = seriesName;
     }
 
-    public String getBookOfAuthor() {
-        return bookOfAuthor;
-    }
 
-    public void setBookOfAuthor(String bookOfAuthor) {
-        this.bookOfAuthor = bookOfAuthor;
-    }
-
-    public String getBookOfPublisher() {
-        return bookOfPublisher;
-    }
-
-    public void setBookOfPublisher(String bookOfPublisher) {
-        this.bookOfPublisher = bookOfPublisher;
-    }
 
     public String getIsbnNumber() {
         return isbnNumber;
@@ -118,5 +100,18 @@ public class Book extends BaseEntity {
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookName='" + bookName + '\'' +
+                ", bookSubtitle='" + bookSubtitle + '\'' +
+                ", seriesName='" + seriesName + '\'' +
+                ", isbnNumber='" + isbnNumber + '\'' +
+                ", bookDescription='" + bookDescription + '\'' +
+                ", author=" + author +
+                ", publisher=" + publisher +
+                '}';
     }
 }

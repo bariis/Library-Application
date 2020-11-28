@@ -2,6 +2,7 @@ package com.baris.ertas.LibraryApplicaton.model;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +13,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Author extends BaseEntity {
+public class Author {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String authorName;
     private String authorDescription;
@@ -24,6 +29,14 @@ public class Author extends BaseEntity {
     public Author(String authorName, String authorDescription) {
         this.authorName = authorName;
         this.authorDescription = authorDescription;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     protected Author() {}

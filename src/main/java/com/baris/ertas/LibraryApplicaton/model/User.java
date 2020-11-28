@@ -15,9 +15,26 @@ public class User {
 
     private String password;
 
-    @Transient
-    private String passwordConfirm;
+    @Column(unique = true)
+    private String email;
 
+    private String authenticationProvider;
+
+    public String getAuthenticationProvider() {
+        return authenticationProvider;
+    }
+
+    public void setAuthenticationProvider(String authenticationProvider) {
+        this.authenticationProvider = authenticationProvider;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
@@ -52,14 +69,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
     }
 
     public Set<Role> getRoles() {

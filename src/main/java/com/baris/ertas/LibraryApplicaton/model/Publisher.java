@@ -9,7 +9,12 @@ import java.util.Set;
 
 
 @Entity
-public class Publisher extends BaseEntity {
+public class Publisher {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
 
     private String publisherName;
     private String publisherDescription;
@@ -22,6 +27,14 @@ public class Publisher extends BaseEntity {
     public Publisher(String publisherName, String publisherDescription) {
         this.publisherName = publisherName;
         this.publisherDescription = publisherDescription;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @JsonManagedReference
