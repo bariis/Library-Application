@@ -1,34 +1,68 @@
 package com.baris.ertas.LibraryApplicaton.controller;
 
+import com.baris.ertas.LibraryApplicaton.model.Author;
 import com.baris.ertas.LibraryApplicaton.model.Book;
+import com.baris.ertas.LibraryApplicaton.model.User;
+import com.baris.ertas.LibraryApplicaton.repository.AuthorRepository;
+import com.baris.ertas.LibraryApplicaton.repository.BookRepository;
+import com.baris.ertas.LibraryApplicaton.repository.PublisherRepository;
 import com.baris.ertas.LibraryApplicaton.service.BookService;
+import javassist.NotFoundException;
+import org.apache.coyote.Request;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/api/v1")
 public class BookController {
 
+
+    @Autowired
+    private PublisherRepository publisherRepository;
+
+    public static Logger logger = LoggerFactory.getLogger(BookController.class);
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/home")
-    public String  getAllBooks(Model model) {
-        model.addAttribute("books", bookService.findAllBooks());
-        return "home";
+    //get all books
+    @GetMapping("/books")
+    public List<Book> getAllBooks() {
+        return this.bookService.findAllBooks();
+    }
+    //get book by id
+    @GetMapping("books/{id}")
+    public Book getBookById(@PathVariable (value = "id") Long bookId) throws NotFoundException {
+        return this.bookService.getBookById(bookId).orElseThrow(() -> new NotFoundException("Book not found with id " + bookId));
     }
 
-    @GetMapping("/{bookName}")
-    public Book getBookByName(@PathVariable String bookName){
-        Book book = bookService.getBookByName(bookName);
-
-        return book;
+    @PostMapping("/books")
+    public Book createBook(Book book) {
+        logger.info(book.toString());
+        return bookService.save(book);
     }
+
+
+   // @DeleteMapping("/{id}")
+    //public Book
+    //create user
+
+    //update user
+    /*@PutMapping("/{id}")
+    public Book updateUser(@RequestBody Book book, @PathVariable (value = "id") long bookId ) throws NotFoundException {
+        Book existingBook = this.bookService.getBookById(bookId).orElseThrow(() -> new NotFoundException("Book not found with id " + bookId));
+        existingBook.setBookDescription(book.getBookDescription());
+        existingBook.setBookOfPublisher(book.getBookOfPublisher());
+        existingBook.setSeriesName(book.getSeriesName());
+        existingBook.setAuthor(book.getAuthor());
+        existingBook.setBookSubtitle(book.getBookSubtitle());
+        return this.bookService.;
+    }*/
+    //delete book by id
 
 }
