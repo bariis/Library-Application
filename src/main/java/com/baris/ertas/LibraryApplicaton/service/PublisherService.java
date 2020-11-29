@@ -20,4 +20,11 @@ public class PublisherService {
         return publishers;
     }
 
+    public Publisher save(Publisher publisher) {
+        if(!publisherRepository.existsByPublisherName(publisher.getPublisherName())) {
+            publisherRepository.save(publisher);
+        }
+        return null;
+    }
+
 }
