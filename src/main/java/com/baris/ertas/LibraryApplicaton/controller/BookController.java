@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class BookController {
 
 
@@ -45,6 +45,13 @@ public class BookController {
     public Book createBook(Book book) {
         logger.info(book.toString());
         return bookService.save(book);
+    }
+
+//<td><a href="" th:href="@{api/books/delete/{id}(id=${book.id})}">Delete</a></td>
+    //@DeleteMapping("/books/delete/{id}")
+    @RequestMapping(path = "/books/delete/{id}")
+    public String deleteBook(@PathVariable("id") Long id) {
+        return bookService.deleteBook(id);
     }
 
 

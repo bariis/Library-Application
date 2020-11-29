@@ -32,7 +32,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="#" th:action="@{/api/v1/books}" th:object="${book}" th:method="POST">
+            <form action="#" th:action="@{api/books}" th:object="${book}" th:method="POST">
                 <div class="form-group col-7">
                     <label for="bookName" class="col-form-label">Kitap Adi:</label>
                     <input th:field="*{bookName}" type="text" class="form-control" id="bookName">
@@ -128,14 +128,15 @@
 
             <td th:text="${book.seriesName}"></td>
             <td th:text="${book.isbnNumber}"></td>
-            <td th:text="${book.bookOfAuthor}"></td>
+            <td th:text="${book.getAuthor().getAuthorName()}"></td>
             <td><span sec:authentication="name"></span></td>
             <td th:text="${userInfo}"></td>
 
             <td>
                 <button type="button" class="btn btn-outline-info">Incele</button>
-                <button type="button" class="btn btn-outline-info">Sil</button>
-                <button type="button" class="btn btn-outline-info">Duzenle</button>
+                <td><a href="" th:href="@{api/books/delete/{id}(id=${book.id})}">Delete</a></td>
+                <!--<button type="button" class="btn btn-outline-info" th:href="@{api/books/delete/{id}(id=${book.id})}" th:method="delete">Sil</button>-->
+                <button type="button" class="btn btn-outline-info" >Duzenle</button>
             </td>
         </tr>
         <tr>
