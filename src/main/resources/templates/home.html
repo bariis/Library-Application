@@ -11,23 +11,190 @@
 
 <script>
     $(function() {
-        $("#exampleModal").on("show.bs.modal", function(e) {
-
-        });
+        $("#exampleModal").on("show.bs.modal", function(e) {});
+        $("#authorModal").on("show.bs.modal", function(e) {});
+        $("#publisherModal").on("show.bs.modal", function(e) {});
     });
 </script>
+<style>
+    .userName {
+        float: right;
+        border: 1px solid red;
+    }
+
+    .navigationBar {
+        margin: 50px auto;
+    }
+
+    table {
+        margin-left: 400px;
+        margin-top: 30px;
+    }
+
+    .buttons {
+        margin: 30px 60px;
+        float: right;
+    }
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100; /* Behind the navbar */
+        padding: 48px 0 0; /* Height of navbar */
+        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    }
+
+    .sidebar-sticky {
+        position: relative;
+        top: 0;
+        height: calc(100vh - 48px);
+        padding-top: .5rem;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    }
+
+    @supports ((position: -webkit-sticky) or (position: sticky)) {
+        .sidebar-sticky {
+            position: -webkit-sticky;
+            position: sticky;
+        }
+    }
+
+    .sidebar .nav-link {
+        font-weight: 500;
+        color: #333;
+    }
+
+    .sidebar .nav-link .feather {
+        margin-right: 4px;
+        color: #999;
+    }
+
+    .sidebar .nav-link.active {
+        color: #007bff;
+    }
+
+    .sidebar .nav-link:hover .feather,
+    .sidebar .nav-link.active .feather {
+        color: inherit;
+    }
+
+    .sidebar-heading {
+        font-size: .75rem;
+        text-transform: uppercase;
+    }
+
+    .sidebar ul li {
+        margin: 5px 20px;
+    }
+
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                                <span sec:authentication="name">Hosgeldin</span>
+                        </li>
+                    </ul>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#publisherModal">
+                                Yayinci ekle
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#authorModal">
+                                Yazar ekle
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                Kitap Ekle
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+    </div>
+
+
+        <!-- modal for author creation -->
+        <div class="modal fade" id="authorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel2">Yeni Yazar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" th:action="@{/authors}" th:object="${author}" th:method="POST">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Yazar Adi:</label>
+                                <input th:field="*{authorName}" type="text" class="form-control" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Yazar Tanimi:</label>
+                                <input th:field="*{authorDescription}" class="form-control" id="message-text"></input>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Iptal</button>
+                                <button type="submit" class="btn btn-primary">Ekle</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal for author creation -->
+        <!-- modal for publisher creation -->
+        <div class="modal fade" id="publisherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel3">Yeni Yayinci</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" th:action="@{/publishers}" th:object="${publisher}" th:method="POST">
+                            <div class="form-group">
+                                <label for="publisherName" class="col-form-label">Yayinci Adi:</label>
+                                <input th:field="*{publisherName}" type="text" class="form-control" id="publisherName">
+                            </div>
+                            <div class="form-group">
+                                <label for="publisherDescription" class="col-form-label">Yayinci Tanimi:</label>
+                                <input th:field="*{publisherDescription}" class="form-control" id="publisherDescription"></input>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Iptal</button>
+                                <button type="submit" class="btn btn-primary">Ekle</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal for publisher creation -->
+
  <!-- create form for books -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-target=".bd-example-modal-lg">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Kitap Ekle</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -49,12 +216,12 @@
                     <label for="isbnNumber" class="col-form-label">ISBN:</label>
                     <input th:field="*{isbnNumber}" type="text" class="form-control" id="isbnNumber">
                 </div>
-                <div class="form-group">
+                <div class="form-group col-7">
                     <label for="bookDescription" class="col-form-label">Kitap Aciklamasi:</label>
                     <input th:field="*{bookDescription}" type="text" class="form-control" id="bookDescription">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-7">
                     <label for="exampleFormControlSelect1">Yazar sec</label>
                     <select class="form-control" id="exampleFormControlSelect1" th:field="*{author}">
                         <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.authorName}"></option>
@@ -62,7 +229,7 @@
                 </div>
 
 
-                <div class="form-group">
+                <div class="form-group col-7">
                     <label for="exampleFormControlSelect2">Yayinci sec</label>
                     <select class="form-control" id="exampleFormControlSelect2" th:field="*{publisher}">
                         <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.publisherName}"></option>
@@ -80,47 +247,27 @@
  <!-- create form for books -->
 
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navigationBar">
+        <a class="navbar-brand" href="home">Ana sayfa</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <form class="form-inline" action="#" th:action="@{/filter}">
+                <input class="form-control mr-sm-2" size="50" name="keyword" type="text" placeholder="Isbn, Kitap Adi, Yazar Adi, Seri Adi" th:value="${keyword}" required id="keyword">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ara</button>
             </form>
         </div>
     </nav>
 
-    <table class="table table-hover">
+    <table class="table table-hover table-md w-auto">
         <thead>
             <th scope="col">Kitap Adi</th>
             <th scope="col">Seri Adi</th>
             <th scope="col">ISBN</th>
             <th scope="col">Yazar</th>
             <th scope="col">Etkilesimler</th>
-        </tr>
         </thead>
         <tbody>
         <tr th:each="book: ${books}">
@@ -129,28 +276,14 @@
             <td th:text="${book.seriesName}"></td>
             <td th:text="${book.isbnNumber}"></td>
             <td th:text="${book.getAuthor().getAuthorName()}"></td>
-            <td><span sec:authentication="name"></span></td>
-            <td th:text="${userInfo}"></td>
-
             <td>
-                <button type="button" class="btn btn-outline-info">Incele</button>
-                <td><a href="" th:href="@{api/books/delete/{id}(id=${book.id})}">Delete</a></td>
-                <!--<button type="button" class="btn btn-outline-info" th:href="@{api/books/delete/{id}(id=${book.id})}" th:method="delete">Sil</button>-->
-                <button type="button" class="btn btn-outline-info" >Duzenle</button>
+                <a href="" th:href="@{books/show/{id}(id=${book.id})}">Incele</a>
+                <a href="" th:href="@{api/books/delete/{id}(id=${book.id})}">Sil</a>
+                <a href="" th:href="@{books/edit/{id}(id=${book.id})}">Duzenle</a>
             </td>
-        </tr>
-        <tr>
         </tr>
 
         </tbody>
     </table>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Kitap Ekle
-    </button>
 </body>
 </html>
-
-<!-- Button trigger modal -->
-
-<!-- Modal -->
-
