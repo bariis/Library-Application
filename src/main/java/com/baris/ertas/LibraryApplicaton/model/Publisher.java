@@ -9,20 +9,20 @@ import java.util.Set;
 
 
 @Entity
-public class Publisher {
+public class Publisher extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
+    @Column(unique = true)
     private String publisherName;
     private String publisherDescription;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "publisher", fetch = FetchType.LAZY)
     private Set<Book> books;
 
-    protected Publisher() {}
+    public Publisher() {}
 
     public Publisher(String publisherName, String publisherDescription) {
         this.publisherName = publisherName;

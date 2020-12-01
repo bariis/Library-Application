@@ -13,15 +13,19 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
-public class Book {
+public class Book extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long kitapId;
+    private Long id;
+
     private String bookName;
     private String bookSubtitle;
     private String seriesName;
+
+    @Column(unique = true)
     private String isbnNumber;
+
     private String bookDescription;
 
     @ManyToOne
@@ -66,8 +70,6 @@ public class Book {
         this.seriesName = seriesName;
     }
 
-
-
     public String getIsbnNumber() {
         return isbnNumber;
     }
@@ -100,6 +102,14 @@ public class Book {
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

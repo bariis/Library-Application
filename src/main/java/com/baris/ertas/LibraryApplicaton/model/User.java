@@ -5,14 +5,13 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String username;
-
     private String password;
 
     @Column(unique = true)
@@ -20,28 +19,13 @@ public class User {
 
     private String authenticationProvider;
 
-    public String getAuthenticationProvider() {
-        return authenticationProvider;
-    }
-
-    public void setAuthenticationProvider(String authenticationProvider) {
-        this.authenticationProvider = authenticationProvider;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    public User(String username, String password, Set<Role> roles) {
+    public User(String username, String password, String email, Set<Role> roles) {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.roles = roles;
     }
 
@@ -79,5 +63,19 @@ public class User {
         this.roles = roles;
     }
 
+    public String getAuthenticationProvider() {
+        return authenticationProvider;
+    }
 
+    public void setAuthenticationProvider(String authenticationProvider) {
+        this.authenticationProvider = authenticationProvider;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

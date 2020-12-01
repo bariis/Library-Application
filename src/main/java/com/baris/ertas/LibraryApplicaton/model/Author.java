@@ -13,13 +13,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Author {
-
+public class Author extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
     private String authorName;
     private String authorDescription;
 
@@ -39,7 +39,7 @@ public class Author {
         this.id = id;
     }
 
-    protected Author() {}
+    public Author() {}
 
     public String getAuthorName() {
         return authorName;
