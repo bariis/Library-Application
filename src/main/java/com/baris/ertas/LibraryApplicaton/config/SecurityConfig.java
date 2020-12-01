@@ -38,12 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/oauth2/**").permitAll()
-                .antMatchers("/css/**", "/js/**", "/registration", "/h2-console/**", "/home", "/welcome", "/login","/api/**").permitAll()
+                .antMatchers("/h2-console/**").hasRole("ADMIN")
+                .antMatchers("/css/**", "/js/**", "/registration", "/login","/oauth2/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/login").defaultSuccessUrl("/home")
                 .permitAll()
                 .and()
                 .oauth2Login()
