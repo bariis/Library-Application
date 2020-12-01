@@ -288,7 +288,7 @@
             <td th:text="${book.getAuthor().getAuthorName()}"></td>
             <td>
                 <a href="" th:href="@{books/show/{id}(id=${book.id})}">Incele</a>
-                <a href="" th:href="@{books/delete/{id}(id=${book.id})}">Sil</a>
+                <a sec:authorize="hasAuthority('ADMIN')" href="" th:href="@{books/delete/{id}(id=${book.id})}">Sil</a>
                 <a href="" th:href="@{books/edit/{id}(id=${book.id})}">Duzenle</a>
             </td>
         </tr>
