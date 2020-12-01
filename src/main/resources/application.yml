@@ -1,0 +1,19 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            clientId: 870365207042835
+            clientSecret: ENC(nvd7I5eOk/fS/MgpcK2o1fbRvB6I2fI9VCmDeHYR7XuPamX9kO/fFxPJmHE4XUib)
+            accessTokenUri: https://graph.facebook.com/oauth/access_token
+            userAuthorizationUri: https://www.facebook.com/dialog/oauth
+            tokenName: oauth_token
+            authenticationScheme: query
+            clientAuthenticationScheme: form
+            resource:
+              userInfoUri: https://graph.facebook.com/me
+
+jasypt:
+  encryptor:
+    password: fb_secret
