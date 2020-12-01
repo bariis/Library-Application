@@ -6,6 +6,7 @@ import com.baris.ertas.LibraryApplicaton.repository.AuthorRepository;
 import com.baris.ertas.LibraryApplicaton.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,9 +22,9 @@ public class AuthorService {
         return authors;
     }
 
-    public Author save(Author author) {
+    public Author save(Author author){
         if(!authorRepository.existsByAuthorName(author.getAuthorName())) {
-            authorRepository.save(author);
+            return authorRepository.save(author);
         }
         return null;
     }

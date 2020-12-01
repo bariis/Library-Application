@@ -38,7 +38,40 @@ public class BookService {
 
     public Book save(Book book) {
         return bookRepository.save(book);
-
     }
+
+    public String deleteBook(Long id) {
+        if(bookRepository.existsById(id)) {
+            bookRepository.deleteById(id);
+        }
+
+        return "basari ile silindi";
+    }
+
+    public Book updateBook(Long id, Book book) {
+        Optional<Book> currentBook = getBookById(id);
+        System.out.println("burasi gelen kitap ->" + book.toString());
+        System.out.println("burasi gelen kitap ->" + currentBook.toString());
+        if(currentBook.isPresent()) {
+            currentBook.get().setBookName(book.getBookName());
+            currentBook.get().setPublisher(book.getPublisher());
+            currentBook.get().setBookDescription(book.getBookDescription());
+            currentBook.get().setSeriesName(book.getSeriesName());
+            currentBook.get().setBookSubtitle(book.getBookSubtitle());
+            currentBook.get().setAuthor(book.getAuthor());
+
+            return bookRepository.save(currentBook.get());
+        }
+
+        return null;
+    }
+
+    public List<Book> listFilteredBooks(String keyword) {
+        if(keyword.length() != 0) {
+            return bookRepository.findByBookNameIgnoreCaseContainingOrSeriesNameIgnoreCaseContainingOrAuthor_AuthorNameIgnoreCaseContainingOrIsbnNumberIgnoreCaseContaining(keyword, keyword, keyword, keyword);
+        }
+        return null;
+    }
+
 
 }
