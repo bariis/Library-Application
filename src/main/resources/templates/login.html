@@ -7,7 +7,10 @@
 </head>
 
 <style>
-    .login { border: 2px solid red; }
+    .login {
+        padding-left: 300px;
+        margin: 100px auto;
+    }
 </style>
 
 <body>
@@ -18,18 +21,18 @@
 
             <div class="form-group">
                 <span th:text="${message}"></span>
-                <input name="username" type="text" class="form-control" placeholder="Username"
+                <input name="username" type="text" class="form-control col-md-3" placeholder="Username"
                        autofocus="true"/>
 
-                <input name="password" type="password" class="form-control" placeholder="Password"/>
+                <input name="password" type="password" class="form-control col-md-3" placeholder="Password"/>
                 <span class="has-error" th:text="${error}"></span>
 
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Giris yap</button>
-                <h4 class="text-center"><a href="/registration">Kayit ol</a></h4>
+                <button class="btn btn-lg btn-primary btn-block col-md-3" type="submit">Giris yap</button>
+                <h4 class="text-center col-md-3"><a href="/registration">Kayit ol</a></h4>
             </div>
-            <div class="text-center social-btn">
+            <div class="text-center social-btn col-md-3">
                 <a th:href="@{/oauth2/authorization/facebook}"  class="btn btn-primary btn-block"><i class="fa fa-facebook"></i><b>Facebook</b> ile giris yap</a>
             </div>
         </form>

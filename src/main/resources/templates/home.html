@@ -23,7 +23,9 @@
     }
 
     .navigationBar {
-        margin: 50px auto;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        margin-left: 400px;
     }
 
     table {
@@ -122,6 +124,14 @@
                                 Kitap Ekle
                             </button>
                         </li>
+                        <li class="nav-item">
+                                <div sec:authorize="isAuthenticated()">
+                                    <form id="logoutForm" method="POST" th:action="@{/logout}">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    </form>
+                                    <button onclick="document.forms['logoutForm'].submit()">Logout</button>
+                                </div>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -199,7 +209,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="#" th:action="@{api/books}" th:object="${book}" th:method="POST">
+            <form action="#" th:action="@{/books}" th:object="${book}" th:method="POST">
                 <div class="form-group col-7">
                     <label for="bookName" class="col-form-label">Kitap Adi:</label>
                     <input th:field="*{bookName}" type="text" class="form-control" id="bookName">
@@ -278,7 +288,7 @@
             <td th:text="${book.getAuthor().getAuthorName()}"></td>
             <td>
                 <a href="" th:href="@{books/show/{id}(id=${book.id})}">Incele</a>
-                <a href="" th:href="@{api/books/delete/{id}(id=${book.id})}">Sil</a>
+                <a href="" th:href="@{books/delete/{id}(id=${book.id})}">Sil</a>
                 <a href="" th:href="@{books/edit/{id}(id=${book.id})}">Duzenle</a>
             </td>
         </tr>

@@ -6,7 +6,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <style>
-
+    form   {
+        margin: 100px auto;
+        padding-left: 290px;
+        width: 80%;
+        text-align: center;
+    }
+    button {
+        margin-right: 40px;
+    }
 </style>
 <head>
     <meta charset="UTF-8">
@@ -16,42 +24,43 @@
 
 <form action="#" th:action="@{/books/edit/{id}(id=${viewedBook.get().id})}" th:object="${viewedBook}" th:method="post">
     <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-3">
             <label for="bookName">Kitap Adi</label>
-            <input th:field="*{bookName}" type="text" class="form-control" id="bookName" th:text="${viewedBook.get().bookName}">
+            <input th:field="*{bookName}" type="text" class="form-control" id="bookName">
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-3">
             <label for="subTitle">Alt Baslik</label>
-            <input type="text" class="form-control" id="subTitle" th:field="*{bookSubtitle}" th:text="${viewedBook.get().getBookSubtitle()}">
+            <input type="text" class="form-control" id="subTitle" th:field="*{bookSubtitle}">
         </div>
     </div>
-    <div class="form-group">
-        <label for="bookSeriesName">Seri Adi</label>
-        <input type="text" class="form-control" id="bookSeriesName" th:field="*{seriesName}" th:text="${viewedBook.get().getSeriesName()}">
+
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="bookSeriesName">Seri Adi</label>
+            <input type="text" class="form-control" id="bookSeriesName" th:field="*{seriesName}">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="bookDescription">Kitap Aciklamasi</label>
+            <input type="text" class="form-control" id="bookDescription" th:field="*{bookDescription}">
+        </div>
     </div>
-    <div class="form-group">
-        <label for="bookDescription">Kitap Aciklamasi</label>
-        <input type="text" class="form-control" id="bookDescription" th:field="*{bookDescription}" th:text="${viewedBook.get().getBookDescription()}">
-    </div>
-
-
-    <div class="form-group">
-        <label for="exampleFormControlSelect1">Yazar sec</label>
-        <select class="form-control" id="exampleFormControlSelect1" th:field="*{author}">
-            <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.authorName}"></option>
-        </select>
-    </div>
-
-
-    <div class="form-group">
-        <label for="exampleFormControlSelect2">Yayinci sec</label>
-        <select class="form-control" id="exampleFormControlSelect2" th:field="*{publisher}">
-            <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.publisherName}"></option>
-        </select>
-    </div>
-
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="exampleFormControlSelect1">Yazar sec</label>
+            <select class="form-control" id="exampleFormControlSelect1" th:field="*{author}">
+                <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.authorName}"></option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="exampleFormControlSelect2">Yayinci sec</label>
+            <select class="form-control" id="exampleFormControlSelect2" th:field="*{publisher}">
+                <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.publisherName}"></option>
+            </select>
+        </div>
     </div>
     <button type="submit" class="btn btn-primary">Kaydet</button>
+    <button th:href="home" class="btn btn-primary">Ana sayfaya Don</button>
+    </div>
 </form>
 
 </body>
