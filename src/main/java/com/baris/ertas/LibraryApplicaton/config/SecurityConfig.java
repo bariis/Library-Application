@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -38,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/h2-console/**").hasRole("ADMIN")
+                .antMatchers("/h2-console/**").hasAuthority("ADMIN")
                 .antMatchers("/css/**", "/js/**", "/registration", "/login","/oauth2/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -47,17 +46,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .oauth2Login()
-                    .loginPage("/login")
-                    .userInfoEndpoint().userService(oAuth2UserService)
-                    .and().successHandler(oAuth2LoginSuccessHandler).defaultSuccessUrl("/home")
+                .loginPage("/login")
+                .userInfoEndpoint().userService(oAuth2UserService)
+                .and().successHandler(oAuth2LoginSuccessHandler).defaultSuccessUrl("/home")
                 .and().logout().permitAll();
-
 
         http.csrf().disable();
         http.headers().frameOptions().disable();
-
     }
-
 
     @Bean
     public AuthenticationManager customAuthenticationManager() throws Exception {
@@ -76,69 +72,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .build();
 
         manager.createUser(adminUser);
-
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
-
         return manager;
     }
 
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    /*@Bean
-    @Override
-    protected UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-
-        UserDetails adminUser = CustomUserDetails
-                .withUsername("admin")
-                .password(encoder().encode("admin123"))
-                .authorities("FULL_PRIVILIGES")
-                .roles("ADMIN")
-                .build();
-
-        UserDetails regularUser = CustomUserDetails
-                .withUsername("user")
-                .password(encoder().encode("user123"))
-                .authorities("READ_ACCESS")
-                .roles("USER")
-                .build();
-
-        manager.createUser(regularUser);
-        manager.createUser(adminUser);
-
-        return manager;
-    } */
-
-   /* @Override
-    protected void configure(HttpSecurity http) throws Exception {
-
-        http.authorizeRequests()
-                .antMatchers("/login", "/register", "/signUp").permitAll()
-                .antMatchers( "/h2-console/**").hasRole("ADMIN").anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/home")
-                .failureUrl("/login?error=true")
-                .permitAll()
-                .and()
-                .logout().permitAll();
-
-        //http.exceptionHandling().accessDeniedPage("/403");
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
-
-    }*/
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(encoder());
-        return authProvider;
     }
 
 }
