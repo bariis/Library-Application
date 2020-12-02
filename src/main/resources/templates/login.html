@@ -21,10 +21,10 @@
 
             <div class="form-group">
                 <span th:text="${message}"></span>
-                <input name="username" type="text" class="form-control col-md-3" placeholder="Username"
+                <input name="username" type="text" class="form-control col-md-3" placeholder="Kullanici adi"
                        autofocus="true"/>
 
-                <input name="password" type="password" class="form-control col-md-3" placeholder="Password"/>
+                <input name="password" type="password" class="form-control col-md-3" placeholder="Sifre"/>
                 <span class="has-error" th:text="${error}"></span>
 
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
