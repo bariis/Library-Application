@@ -23,10 +23,7 @@ public class AuthorService {
     }
 
     public Author save(Author author){
-        if(!authorRepository.existsByAuthorName(author.getAuthorName())) {
-            return authorRepository.save(author);
-        }
-        return null;
+       return authorRepository.save(author);
     }
 
 }
