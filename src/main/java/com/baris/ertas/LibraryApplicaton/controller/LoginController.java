@@ -28,4 +28,9 @@ public class LoginController {
         return "redirect:/home";
     }
 
+    @GetMapping("/")
+    public String default_url() {
+        return "redirect:/home";
+    }
+
 }
